@@ -1,0 +1,13 @@
+Saugarde : 
+
+$list = Get-ChildItem C:\Users
+
+foreach ($list in Get-ChildItem c:\users)
+{
+
+Copy-Item -Path "c:\users\$list\Documents" -Destination "\\BAPTISTE\Share\$list" -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item -Path "c:\users\$list\Desktop" -Destination "\\BAPTISTE\Share\$list" -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item -Path "c:\users\$list\Downloads" -Destination "\\BAPTISTE\Share\$list" -Recurse -Force -ErrorAction SilentlyContinue
+
+}
+
