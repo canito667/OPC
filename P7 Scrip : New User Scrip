@@ -1,0 +1,73 @@
+
+# Importer les données 
+$CSVFile = "E:\0_0_PARTAGE_COMMUN\1.7_INFORMATIQUE\0_1_Scripts\0910_Creation_User\UtilisateursAD.csv"
+$CSVData = Import-CSV -Path $CSVFile -Delimiter "," -Encoding UTF8
+
+#Boucle Foreach pour parcourir le fichier CSV
+Foreach($Utilisateur in $CSVData)
+{
+    #Ajout des variables par colonne dans le fichier CSV
+    $UtilisateurPrenom = $Utilisateur.Prenom
+    $UtilisateurNom = $Utilisateur.Nom
+    $UtilisateurService = $Utilisateur.Service
+    $UtilisateurFonction = $Utilisateur.Fonction
+    $UtilisateurLogin = $Utilisateur.Login
+    $UtilisateurEmail = $Utilisateur.Mail
+    $UtilisateurPassword = $Utilisateur.Password
+    $UtilisateurOU = $Utilisateur.OU
+
+
+
+    # Vérifier la présence de l'utilisateur dans l'AD
+    if (Get-ADUser -Filter {SamAccountName -eq $UtilisateurLogin})
+    {
+        Write-Warning "L'identifiant $UtilisateurLogin existe déjà dans l'AD"
+    }
+    else
+    {
+        #Ajout des utilisateurs par colonne dans le fichier CSV
+        New-ADUser  -Name "$UtilisateurNom $UtilisateurPrenom" `
+                    -DisplayName "$UtilisateurNom $UtilisateurPrenom" `
+                    -GivenName $UtilisateurPrenom `
+                    -Surname $UtilisateurNom `
+                    -SamAccountName $UtilisateurLogin `
+                    -UserPrincipalName "$UtilisateurLogin" `
+                    -EmailAddress $UtilisateurEmail `
+                    -Title $UtilisateurFonction `
+                    -Path $UtilisateurOU `
+                    -AccountPassword (ConvertTo-SecureString $UtilisateurPassword -AsPlainText -Force) `
+                    -ChangePasswordAtLogon $true `
+                    -Enabled $true
+
+        #Notifier si l'utilisateur a bien été créé
+        Write-Output "Création de l'utilisateur : $UtilisateurLogin ($UtilisateurNom $UtilisateurPrenom)"
+
+
+    }
+}
+
+#Ajout des variables : chemin d'accès où se trouvent les utilisateurs pour créer le dossier personnel partagé ainsi que le chemin d'accès où se trouvera 
+le dossier
+$OU_path = "OU=USERS,OU=AXEPLANE,DC=axeplane,DC=loc"
+$Base_Folder = "\\Srv-ad-ds-01\0_1_PARTAGE_PERSONNEL"
+
+#Chercher les utilisateurs dans l'AD
+$users = get-aduser -SearchBase $OU_path -filter * -Properties UserPrincipalName | % { $_.UserPrincipalName.Split('@')[0] }
+
+#Boucle pour parcourir les utilisateurs et créer le dossier avec le nom de l'utilisateur et les différents droits d'accès (admin + utilisateur)
+$users | ForEach {
+
+    $folder = join-path -path $Base_Folder -childpath $_
+
+    If (!(Test-Path -Path $folder )) {
+
+        New-Item -Path $folder -ItemType Directory
+
+        $acl = Get-Acl $folder
+        $acl.SetAccessRuleProtection($true, $true)
+        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($_, "FullControl", "ContainerInherit,ObjectInherit", "None", "Allow") 
+        $acl.SetAccessRule($AccessRule)
+        $acl | Set-Acl $folder
+
+    }
+}
