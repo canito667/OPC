@@ -1,0 +1,12 @@
+
+Elimina un objeto de la tabla
+DELETE FROM `utilisateur` WHERE `id` = '2';
+
+elimina la tabla completa
+DELETE FROM utilisateur;
+
+Elimna una tabla
+DROP TABLE `utilisateur`;
+
+Elimna una base de datos
+DROP DATABASE foodly ;
