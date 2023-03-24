@@ -1,0 +1,115 @@
+
+ingresar datos a la tabla utilsateur 
+
+INSERT INTO `utilisateur` (`nom`, `prenom`, `email`)
+VALUES ('Durantay', 'Quentin', 'quentin@gmail.com');
+
+varios datos a la tabal utilsateur
+
+INSERT INTO `utilisateur` (`nom`, `prenom`, `email`)
+VALUES
+('Doe', 'John', 'john@yahoo.fr'),
+('Smith', 'Jane', 'jane@hotmail.com'),
+('Dupont', 'Sebastien', 'sebastien@orange.fr'),
+('Martin', 'Emilie', 'emilie@gmail.com');
+
+Agragar datos a la tabal alimentos
+
+INSERT INTO `aliment` (`nom`, `marque`, `sucre`, `calories`, `graisses`, `proteines`, `bio`)
+VALUES
+('poire', 'monoprix', 27.5, 134, 0.2, 1.1, FALSE),
+('pomme', 'monoprix', 19.1, 72, 0.2, 0.4, FALSE),
+('oeuf', 'carrefour', 0.6, 82, 5.8, 6.9, TRUE),
+('lait d\'amande', 'bjorg', 4.5, 59, 3.9, 1.1, TRUE);
+
+CARACTERES PARA IDETIFICAR EN LAS LINEAS DE COMANDO
+
+TECLA 7   [ ` ] NOMBRE DE TABLAS O COLUMNAS
+TECLA 3   [ " ] TEXTO Y CARACTERES
+          [   ] BOOLEAN, NUMEROS, Y DECIMALES
+
+******************************************************************************
+para visualizar completa una tabal con sus datos 
+******************************************************************************mysql> select * from aliment;
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  1 | poire         | monoprix  |  27.5 |      134 |      0.2 |       1.1 |    0 |
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+4 rows in set (0,00 sec)
+
+mysql> select * frmysql> select * from aliment;
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  1 | poire         | monoprix  |  27.5 |      134 |      0.2 |       1.1 |    0 |
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+4 rows in set (0,00 sec)
+
+mysql> select * from utilisateur;
++----+----------+-----------+---------------------+
+| id | nom      | prenom    | email               |
++----+----------+-----------+---------------------+
+|  1 | Durantay | Quentin   | quentin@gmail.com   |
+|  2 | Doe      | John      | john@yahoo.fr       |
+|  3 | Smith    | Jane      | jane@hotmail.com    |
+|  4 | Dupont   | Sebastien | sebastien@orange.fr |
+|  5 | Martin   | Emilie    | emilie@gmail.com    |
++----+----------+-----------+---------------------+
+5 rows in set (0,00 sec)
+
+om utilisateur;
++----+----------+-----------+---------------------+
+| id | nom      | prenom    | email               |
++----+----------+-----------+---------------------+
+|  1 | Durantay | Quentin   | quentin@gmail.com   |
+|  2 | Doe      | John      | john@yahoo.fr       |
+|  3 | Smith    | Jane      | jane@hotmail.com    |
+|  4 | Dupont   | Sebastien | sebastien@orange.fr |
+|  5 | Martin   | Emilie    | emilie@gmail.com    |
++----+----------+-----------+---------------------+
+5 rows in set (0,00 sec)
+
+
+
+select * from [nom de la table];
+
+
+mysql> select * from aliment;
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  1 | poire         | monoprix  |  27.5 |      134 |      0.2 |       1.1 |    0 |
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+4 rows in set (0,00 sec)
+
+mysql> select * from utilisateur;
++----+----------+-----------+---------------------+
+| id | nom      | prenom    | email               |
++----+----------+-----------+---------------------+
+|  1 | Durantay | Quentin   | quentin@gmail.com   |
+|  2 | Doe      | John      | john@yahoo.fr       |
+|  3 | Smith    | Jane      | jane@hotmail.com    |
+|  4 | Dupont   | Sebastien | sebastien@orange.fr |
+|  5 | Martin   | Emilie    | emilie@gmail.com    |
++----+----------+-----------+---------------------+
+5 rows in set (0,00 sec)
+
+
+
+
+
+
+
+
+
+
