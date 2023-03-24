@@ -1,0 +1,148 @@
+establece contrasena para ROOT y tambien inicia session con el usuario ROOT 
+mysql -u root -p 
+
+prompt mysql : 
+mysql >
+
+por crear una base de datos 
+CREATE DATABASE nomdelabase;
+
+para ver las bases de datos creadas
+SHOW DATABASES;
+
+mysql> show tables;
++------------------+
+| Tables_in_foodly |
++------------------+
+| utilisateur      |
++------------------+
+1 row in set (0,00 sec)
+
+para seleccionar la base de datos creada u otra 
+USE nomdelabase;
+
+
+******************************************************************************
+EJEMPLO CREACION DE UNA TABLA PARA LOS UTILISADORES
+******************************************************************************
+
+CREATE TABLE utilisateur (
+id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+nom VARCHAR(100),
+prenom VARCHAR(100),
+email VARCHAR(255) NOT NULL UNIQUE
+);
+
+RESULTADO A OBTENER : Query OK
+
+
+******************************************************************************
+EJEMPLO CREACION DE UNA TABLA PARA LOS ALIMENTOS
+******************************************************************************
+
+CREATE TABLE aliment (
+id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+nom VARCHAR(100) NOT NULL,
+marque VARCHAR(100),
+sucre FLOAT,
+calories INTEGER NOT NULL,
+graisses FLOAT,
+proteines FLOAT,
+bio BOOLEAN DEFAULT false
+);
+
+RESULTADO A OBTENER : Query OK
+
+######################################
+Voici leur explication :
+
+    FLOAT  signifie que le champ contiendra des chiffres décimaux ;
+
+    BOOLEAN   est un type de champ très connu en informatique. Il ne peut stocker que les valeurs  true   (vrai) ou  false  (faux) ;
+
+    DEFAULT   sert à indiquer une valeur par défaut. Utile pour ne pas avoir à spécifier une valeur tout le temps ! Ici, 
+              on indique que la valeur par défaut sera la valeur  false  .
+
+
+
+******************************************************************************
+EJEMPLO CREACION DE UNA TABLA PARA ver las tabalas
+******************************************************************************
+
+Para ver las tabalas de la base
+SHOW TABLES;
+
+mysql> show tables;
++------------------+
+| Tables_in_foodly |
++------------------+
+| aliment          |
+| utilisateur      |
++------------------+
+2 rows in set (0,00 sec)
+
+
+Para visualizar en columnas la tabal utilsador 
+SHOW COLUMNS FROM tabla;   
+
+mysql> SHOW COLUMNS FROM utilisateur;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nom    | varchar(100) | YES  |     | NULL    |                |
+| prenom | varchar(100) | YES  |     | NULL    |                |
+| email  | varchar(255) | NO   | UNI | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0,00 sec)
+
+mysql> SHOW COLUMNS FROM aliment;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| id        | int          | NO   | PRI | NULL    | auto_increment |
+| nom       | varchar(100) | NO   |     | NULL    |                |
+| marque    | varchar(100) | YES  |     | NULL    |                |
+| sucre     | float        | YES  |     | NULL    |                |
+| calories  | int          | NO   |     | NULL    |                |
+| graisses  | float        | YES  |     | NULL    |                |
+| proteines | float        | YES  |     | NULL    |                |
+| bio       | tinyint(1)   | YES  |     | 0       |                |
++-----------+--------------+------+-----+---------+----------------+
+8 rows in set (0,00 sec)
+
+EN RESUME 
+
+    Pour lancer MySQL, on lance un terminal, puis on tape la commande 
+    mysql -u root -p
+
+    Pour créer une base de données, on utilise la commande  
+    CREATE DATABASE;  .
+
+    Pour utiliser une base en particulier on utilise la commande  
+    USE mabasededonnee;
+
+    Pour connaitre les bases disponibles, on utilise la commande  
+    SHOW DATABASES;
+
+    Une table est un espace dans votre base de données qui va stocker des objets de même type. On la crée avec la commande  
+    CREATE TABLE;.
+
+    Lors de la création d'une table on spécifie le nom, le type et les options de chaque champ .
+
+    Pour vérifier la création des tables, on utilise les commandes   
+    SHOW tables;  et   SHOW COLUMNS FROM table; .
+
+    On peut charger une base de données en seul clic si on dispose d'un fichier .sql contenant les instructions adéquates.
+
+
+
+
+
+
+
+
+
+
+
+
