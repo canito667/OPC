@@ -137,6 +137,12 @@ EN RESUME
 
 
 
+******************************************************************************
+EJEMPLO FUSION BASE DE DATOS EXTESION SQL O TXT 
+******************************************************************************
+
+mysql -u root -p nom_de_la_base_de_donnees < nom_du_fichier.sql
+
 
 
 
