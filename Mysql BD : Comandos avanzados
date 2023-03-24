@@ -1,0 +1,212 @@
+SELECT * FROM aliment WHERE nom = "poire";
+
+mysql> SELECT * FROM aliment WHERE nom = "poire";
++----+-------+----------+-------+----------+----------+-----------+------+
+| id | nom   | marque   | sucre | calories | graisses | proteines | bio  |
++----+-------+----------+-------+----------+----------+-----------+------+
+|  1 | poire | monoprix |  27.5 |      134 |      0.2 |       1.1 |    0 |
++----+-------+----------+-------+----------+----------+-----------+------+
+1 row in set (0,00 sec)
+
+************************************************************************************************************
+WHERE nos permite establecer criterios para selcecionar objetos en la base, se permiten:
+************************************************************************************************************
+
+    Supérieur à ( > ) ;
+    Inférieur à ( < ) ;
+    Supérieur ou égal à (>=) ;
+    Et inférieur ou égal à (<=).
+
+
+mysql> SELECT * FROM aliment WHERE calories < 90;
+
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+3 rows in set (0,00 sec)
+
+************************************************************************************************************
+LIKE & WHERE Permite de selecionar con criterios mas precisos
+************************************************************************************************************
+
+mysql> SELECT * FROM utilisateur WHERE email LIKE "%gmail.com";
++----+----------+---------+--------------------+
+| id | nom      | prenom  | email              |
++----+----------+---------+--------------------+
+|  1 | Durantay | Quentin | quentind@gmail.com |
+|  5 | Martin   | Emilie  | emilie@gmail.com   |
++----+----------+---------+--------------------+
+2 rows in set (0,00 sec)
+
+
+mysql> select * from utilisateur where email like "%.fr";
++----+--------+-----------+---------------------+
+| id | nom    | prenom    | email               |
++----+--------+-----------+---------------------+
+|  2 | Doe    | John      | john@yahoo.fr       |
+|  4 | Dupont | Sebastien | sebastien@orange.fr |
++----+--------+-----------+---------------------+
+2 rows in set (0,00 sec)
+
+************************************************************************************************************
+ASC & DESC permite ordenar los datos
+************************************************************************************************************
+
+mysql> SELECT * FROM aliment ORDER BY calories ASC;
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  1 | poire         | monoprix  |  27.5 |      134 |      0.2 |       1.1 |    0 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+4 rows in set (0,00 sec)
+
+
+
+mysql> SELECT * FROM aliment WHERE calories < 90 ORDER BY calories DESC;
++----+---------------+-----------+-------+----------+----------+-----------+------+
+| id | nom           | marque    | sucre | calories | graisses | proteines | bio  |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+|  3 | oeuf          | carrefour |   0.6 |       82 |      5.8 |       6.9 |    1 |
+|  2 | pomme         | monoprix  |  19.1 |       72 |      0.2 |       0.4 |    0 |
+|  4 | lait d'amande | bjorg     |   4.5 |       59 |      3.9 |       1.1 |    1 |
++----+---------------+-----------+-------+----------+----------+-----------+------+
+3 rows in set (0,00 sec)
+
+Au lieu d'écrire :
+
+SELECT * FROM aliment WHERE calories < 90  AND sucre >10 ORDER BY calories DESC;
+
+Écrivez plutôt :
+
+SELECT * 
+
+FROM aliment 
+
+WHERE (calories < 90)  AND (sucre >10) 
+
+ORDER BY calories DESC;
+
+************************************************************************************************************
+COUNT Cuenta datos en una base que se repiten
+************************************************************************************************************
+
+mysql> SELECT COUNT(*) FROM utilisateur WHERE email LIKE "%gmail.com";
+
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0,02 sec)
+
+mysql> SELECT COUNT(email) 
+       FROM utilisateur 
+       WHERE email LIKE "%gmail.com";
++--------------+
+| COUNT(email) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0,00 sec)
+
+mysql> SELECT * 
+       FROM aliment 
+       WHERE nom like "%pomme%";
++----+-------+----------+-------+----------+----------+-----------+------+
+| id | nom   | marque   | sucre | calories | graisses | proteines | bio  |
++----+-------+----------+-------+----------+----------+-----------+------+
+|  2 | pomme | monoprix |  19.1 |       72 |      0.2 |       0.4 |    0 |
++----+-------+----------+-------+----------+----------+-----------+------+
+1 row in set (0,00 sec)
+
+************************************************************************************************************
+DISTINCT - Cuenta los datos que seans diferentes y tambien los dobles
+************************************************************************************************************
+
+mysql> SELECT COUNT(DISTINCT nom) 
+    -> FROM aliment 
+    -> WHERE nom LIKE "%pomme%";
++---------------------+
+| COUNT(DISTINCT nom) |
++---------------------+
+|                   1 |
++---------------------+
+1 row in set (0,01 sec)
+
+mysql> SELECT COUNT(DISTINCT nom)  AS "produits différents contenant le mot pomme"
+    -> FROM aliment 
+    -> WHERE nom LIKE "%pomme%";
++---------------------------------------------+
+| produits différents contenant le mot pomme  |
++---------------------------------------------+
+|                                           1 |
++---------------------------------------------+
+1 row in set (0,00 sec)
+
+************************************************************************************************************
+OPERACIONES EN LA BASES
+************************************************************************************************************
+
+    AVG : nous donne la moyenne de la colonne sur la sélection ;
+    SUM : nous donne la somme de la colonne sur la sélection ;
+    MAX : nous donne le maximum de la colonne sur la sélection ;
+    MIN : nous donne le minimum de la colonne sur la sélection.
+
+mysql> SELECT MAX(sucre)  AS "taux de sucre maximum"
+    -> FROM aliment; 
++-----------------------+
+| taux de sucre maximum |
++-----------------------+
+|                  27.5 |
++-----------------------+
+1 row in set (0,00 sec)
+
+************************************************************************************************************
+CREATE VIEW crea vistas rapidas 
+************************************************************************************************************
+
+mysql> CREATE VIEW utilisateurs_gmail_vw AS SELECT * FROM utilisateur WHERE email LIKE "%gmail.com";
+Query OK, 0 rows affected (0,00 sec)
+
+mysql> CREATE VIEW utilisateurs_gmail_vw AS 
+    ->     (   SELECT * 
+    ->         FROM utilisateur 
+    ->         WHERE email LIKE "%gmail.com"
+    ->     );
+
+para ver la vista creada 
+
+mysql> SELECT * FROM utilisateurs_gmail_vw;
++----+----------+---------+--------------------+
+| id | nom      | prenom  | email              |
++----+----------+---------+--------------------+
+|  1 | Durantay | Quentin | quentind@gmail.com |
+|  5 | Martin   | Emilie  | emilie@gmail.com   |
++----+----------+---------+--------------------+
+2 rows in set (0,00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
